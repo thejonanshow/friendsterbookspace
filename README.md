@@ -1,24 +1,16 @@
-# README
+# Friendsterbookspace
+![](https://www.dogulindigital.com.au/wp-content/uploads/2013/07/social-media-marketing-for-business.png)
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Socialtopia
 
-Things you may want to cover:
+Number 1 excellent chat friend social making network for synergistic leveraging
+thought leadership.
 
-* Ruby version
+## Innovations
 
-* System dependencies
+#### AI, Machine Learning, WebSockets, Dialogue Systems, IoT, Home Automation,
+Voice Recognition
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+The first AI machine learning dialogue system to leverage IoT home automation
+and voice recognition web socket technologies on a continuously integrated PAAS
+to enable MMOC: massively multiplayer online chatroom.
