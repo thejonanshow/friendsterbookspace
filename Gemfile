@@ -15,6 +15,7 @@ gem "jquery-rails", "~> 4.3"
 gem "jbuilder", "~> 2.5"
 gem "redis", "~> 3.0"
 gem "rspec-rails", "~> 3.5"
+gem "omniauth-google-oauth2", "~> 0.4"
 
 group :development, :test do
   gem "pry-byebug", "~> 3.4"
