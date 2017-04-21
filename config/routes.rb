@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  get 'rooms/show'
+  resources :sessions, only: [:create, :destroy]
+  resources :rooms, only: [:show]
 
+  get '/auth/:provider/callback', to: 'sessions#create'
   root "welcome#index"
 end
