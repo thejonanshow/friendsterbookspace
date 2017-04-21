@@ -16,6 +16,8 @@ gem "jbuilder", "~> 2.5"
 gem "redis", "~> 3.0"
 gem "rspec-rails", "~> 3.5"
 gem "omniauth-google-oauth2", "~> 0.4"
+gem "faker", "~> 1.7"
+gem "fabrication", "~> 2.16"
 
 group :development, :test do
   gem "pry-byebug", "~> 3.4"
