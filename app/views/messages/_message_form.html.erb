@@ -1,5 +1,5 @@
-<%= form_for message do |f| %>
-  <%= f.text_field :content %>
+<%= form_for message, remote: true do |f| %>
+  <%= f.text_field :content, data: { textfield: "message" } %>
   <%= f.hidden_field :room_id, value: room.id %>
-  <%= f.submit :send %>
+  <%= f.submit :send, data: { send: "message" } %>
 <% end %>

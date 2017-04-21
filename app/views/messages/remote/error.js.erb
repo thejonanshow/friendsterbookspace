@@ -1,0 +1,3 @@
+<% @message.errors.full_messages.each do |message| %>
+  $('body').prepend("<div class='error'>" + "<%= message %>" + "</div>");
+<% end %>

@@ -1,17 +1,21 @@
 class MessagesController < ApplicationController
   def create
-    content = 
     @message = Message.new(
       user: current_user,
       room_id: message_params[:message][:room_id],
       content: message_params[:message][:content]
     )
 
-    unless @message.save
-      flash_errors_for(@message)
+    if @message.save
+      ActionCable.server.broadcast(
+        "messages",
+        message: @message.content,
+        user_name: @message.user.name
+      )
+      head :created
+    else
+      render "messages/remote/error"
     end
-
-    redirect_to room_path(@message.room)
   end
 
   private
