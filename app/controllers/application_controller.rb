@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+  include FlashHelper
+
   protect_from_forgery with: :exception
   helper_method :current_user
   helper_method :current_user=

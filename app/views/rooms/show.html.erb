@@ -1,2 +1,4 @@
 <h1>WE ARE CHATTING</h1>
 <h3>You are <%= current_user.name %></h3>
+<%= render @room %>
+<%= render "messages/message_form", message: @message, room: @room %>
