@@ -1,10 +1,10 @@
 class Api::MessagesController < ApiController
-  before_action :set_user
+  before_action :set_user, :set_room
 
   def create
     message = Message.new(
       user: @user,
-      room: @room || Room.default_room,
+      room: @room || Room.default,
       content: message_params[:content]
     )
 

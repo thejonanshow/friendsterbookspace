@@ -29,6 +29,24 @@ RSpec.describe Api::MessagesController, type: :controller do
           Message.count
         }.from(0).to(1)
       end
+
+      it "without a room uses the default room" do
+        post :create, data
+        expect(Message.last.room).to eql Room.default
+      end
+
+      context "with a room slug" do
+        let(:room) { Fabricate(:room) }
+
+        before do
+          message[:room] = { slug: room.slug }
+        end
+
+        it "with a room uses the supplied room" do
+          post :create, data
+          expect(Message.last.room).to eql room
+        end
+      end
     end
   end
 end
