@@ -19,9 +19,12 @@ gem "omniauth-google-oauth2", "~> 0.4"
 gem "faker", "~> 1.7"
 gem "fabrication", "~> 2.16"
 gem "ejs", "~> 1.1"
+gem "faraday", "~> 0.11"
+gem "dotenv", "~> 2.2"
 
 group :development, :test do
   gem "pry-byebug", "~> 3.4"
+  gem "webmock", "~> 3.0"
 end
 
 group :development do

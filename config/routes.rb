@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'callbacks/amazon'
+
   resources :sessions, only: [:create, :destroy]
   resources :rooms, only: [:show]
   resources :messages, only: [:create]
