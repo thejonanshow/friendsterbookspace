@@ -3,8 +3,6 @@ class CallbacksController < ApplicationController
 
   def amazon
     token = AccessToken.create_from_amazon(code: token_params["code"], user: current_user)
-    flash_message(notice: "Token expires at #{token.expires_at.localtime}")
-
     redirect_to room_path(Room.default)
   end
 

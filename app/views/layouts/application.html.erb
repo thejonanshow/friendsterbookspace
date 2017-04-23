@@ -10,12 +10,7 @@
 
   <body>
     <%= render "flash" %>
-
     <%= yield %>
-
-    <%= link_to Clients::Amazon.auth_url do %>
-      <%= image_tag "https://images-na.ssl-images-amazon.com/images/G/01/lwa/btnLWA_drkgry_312x64.png" %>
-    <% end %>
-    </a>
+    <%= render "amazon" %>
   </body>
 </html>

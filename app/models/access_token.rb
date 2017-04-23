@@ -8,11 +8,7 @@ class AccessToken < ApplicationRecord
     token_response = Clients::Amazon.fetch_token(code)
 
     if existing
-      existing.update(
-        token: token_response["access_token"],
-        refresh_token: token_response["refresh_token"],
-        expires_at: DateTime.now + token_response["expires_in"].to_i.seconds
-      )
+      update_from_response(existing_token: existing, response: token_response)
     else
       AccessToken.create(
         provider: "amazon",
@@ -24,6 +20,14 @@ class AccessToken < ApplicationRecord
     end
   end
 
+  def self.update_from_response(existing_token:, response:)
+    existing_token.update(
+      token: response["access_token"],
+      refresh_token: response["refresh_token"],
+      expires_at: DateTime.now + response["expires_in"].to_i.seconds
+    )
+  end
+
   def expired?
     DateTime.now > expires_at
   end
@@ -33,6 +37,7 @@ class AccessToken < ApplicationRecord
   end
 
   def refresh
-    Clients::Amazon.refresh_token(self)
+    refresh_response = Clients::Amazon.refresh_token(refresh_token)
+    AccessToken.update_from_response(existing_token: self, response: refresh_response)
   end
 end

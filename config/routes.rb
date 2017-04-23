@@ -10,5 +10,7 @@ Rails.application.routes.draw do
   end
 
   get '/auth/:provider/callback', to: 'sessions#create'
+  get '/access_tokens/refresh', to: 'access_tokens#refresh'
+
   root "welcome#index"
 end

@@ -1,0 +1,13 @@
+<div class="amazon">
+  <div class="login"><%= link_to "Login with Amazon", Clients::Amazon.auth_url %></div>
+  <% if token = current_user.access_tokens.where(provider: "amazon").first %>
+
+    <% if token.valid_token? %>
+      <div class="token-expiration">Token will expire at <%= token.expires_at.localtime %></div>
+    <% else %>
+      <div class="token-expiration">Token expired at <%= token.expires_at.localtime %></div>
+    <% end %>
+
+    <div class="refresh"><%= link_to "Refresh token", "/access_tokens/refresh" %></div>
+  <% end %>
+</div>

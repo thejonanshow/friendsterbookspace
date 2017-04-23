@@ -1,9 +1,13 @@
 module Clients
   class Amazon
     def self.fetch_token(code)
+      post_tokens_endpoint(new_token_params(code))
+    end
+
+    def self.post_tokens_endpoint(params)
       response = connection.post do |request|
         request.url "/auth/o2/token"
-        request.body = token_params(code)
+        request.body = params
       end
 
       JSON.parse(response.body)
@@ -48,17 +52,30 @@ module Clients
       end
     end
 
-    def self.token_params(code)
-      {
-        grant_type: "authorization_code",
+    def self.new_token_params(code)
+      token_params.merge({
         code: code,
+        redirect_uri: redirect_uri,
+        grant_type: "authorization_code"
+      })
+    end
+
+    def self.token_params
+      {
         client_id: ENV["AMAZON_CLIENT_ID"],
-        client_secret: ENV["AMAZON_CLIENT_SECRET"],
-        redirect_uri: redirect_uri
+        client_secret: ENV["AMAZON_CLIENT_SECRET"]
       }
     end
 
+    def self.refresh_token_params(token)
+      token_params.merge({
+        refresh_token: token,
+        grant_type: "refresh_token"
+      })
+    end
+
     def self.refresh_token(token)
+      post_tokens_endpoint(refresh_token_params(token))
     end
   end
 end
