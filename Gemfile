@@ -22,6 +22,7 @@ gem "ejs", "~> 1.1"
 gem "faraday", "~> 0.11"
 gem "dotenv", "~> 2.2"
 gem "bootstrap", "~> 4.0.0.alpha6"
+gem "aws-sdk", "~> 2"
 
 group :development, :test do
   gem "pry-byebug", "~> 3.4"
