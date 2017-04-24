@@ -4,7 +4,7 @@ class User < ApplicationRecord
   has_many :access_tokens
 
   def self.find_or_create_from_auth_hash(auth_hash)
-    User.create(
+    User.find_or_create_by(
       name: auth_hash[:info][:name],
       email: auth_hash[:info][:email]
     )

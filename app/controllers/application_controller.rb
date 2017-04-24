@@ -6,6 +6,10 @@ class ApplicationController < ActionController::Base
   helper_method :current_user=
   helper_method :admin_user?
 
+  def ensure_current_user
+    redirect_to "/auth/google_oauth2" unless current_user
+  end
+
   def current_user
     @user ||= User.find(session[:user_id])
   rescue ActiveRecord::RecordNotFound

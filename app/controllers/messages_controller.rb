@@ -1,18 +1,10 @@
 class MessagesController < ApplicationController
   def create
-    @message = Message.new(
+    @message = Message.create(
       user: current_user,
       room_id: message_params[:message][:room_id],
       content: message_params[:message][:content]
     )
-
-    if @message.save
-      ActionCable.server.broadcast(
-        "messages",
-        message: @message.content,
-        user_name: @message.user.name
-      )
-    end
 
     head :created
   end
