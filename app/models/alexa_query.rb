@@ -14,4 +14,24 @@ class AlexaQuery
   ensure
     File.delete(mp3.path)
   end
+
+  def say(text)
+    wav = @polly.speak "Simon says #{text}"
+    mp3 = @alexa.send_audio(wav)
+    mp3_filename = mp3.path.split("/").last
+    @s3.upload_file(mp3_filename, mp3)
+    @s3.url_for(mp3_filename)
+  ensure
+    File.delete(mp3.path)
+  end
+
+  def tell(text)
+    wav = @polly.speak "Simon says #{text}"
+    mp3 = @alexa.send_audio(wav)
+    mp3_filename = mp3.path.split("/").last
+    @s3.upload_file(mp3_filename, mp3)
+    @s3.url_for(mp3_filename)
+  ensure
+    File.delete(mp3.path)
+  end
 end

@@ -1,7 +1,7 @@
 <%= form_for message, remote: true do |f| %>
   <div class="input-group">
     <%= f.text_field :content, data: { textfield: "message" }, class: "form-control", autocomplete: :off %>
-    <%= f.submit :send, data: { send: "message" }, class: "input-group-addon" %>
   </div>
+  <%= f.submit :send, data: { send: "message" }, style: "display: none;" %>
   <%= f.hidden_field :room_id, value: room.id %>
 <% end %>
