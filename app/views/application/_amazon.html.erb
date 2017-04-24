@@ -1,5 +1,5 @@
 <div class="amazon">
-  <div class="login"><%= link_to "Login with Amazon", Clients::Amazon.auth_url %></div>
+  <div class="login"><%= link_to "Login with Amazon", Clients::Amazon::Auth.auth_url %></div>
   <% if token = current_user.access_tokens.where(provider: "amazon").first %>
 
     <% if token.valid_token? %>

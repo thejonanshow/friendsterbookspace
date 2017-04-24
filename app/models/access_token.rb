@@ -5,7 +5,7 @@ class AccessToken < ApplicationRecord
     existing = AccessToken.find_by(provider: "amazon", user: user)
     return existing if existing && existing.valid_token?
 
-    token_response = Clients::Amazon.fetch_token(code)
+    token_response = Clients::Amazon::Auth.fetch_token(code)
 
     if existing
       update_from_response(existing_token: existing, response: token_response)
@@ -37,7 +37,7 @@ class AccessToken < ApplicationRecord
   end
 
   def refresh
-    refresh_response = Clients::Amazon.refresh_token(refresh_token)
+    refresh_response = Clients::Amazon::Auth.refresh_token(refresh_token)
     AccessToken.update_from_response(existing_token: self, response: refresh_response)
   end
 end
