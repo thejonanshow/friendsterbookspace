@@ -13,13 +13,16 @@ RSpec.describe Api::MessagesController, type: :controller do
       let(:message) {
         {
           user: { name: "fake-name" },
-          content: "fake-content"
+          content: "fake-content",
         }
       }
 
       let(:data) {
         {
-          params: { message: message },
+          params: {
+            message: message,
+            api_key: ENV["MESSAGES_API_KEY"]
+          },
           format: :json
         }
       }
