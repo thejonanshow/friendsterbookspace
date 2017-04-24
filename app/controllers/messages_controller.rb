@@ -12,10 +12,9 @@ class MessagesController < ApplicationController
         message: @message.content,
         user_name: @message.user.name
       )
-      head :created
-    else
-      render "messages/remote/error"
     end
+
+    head :created
   end
 
   private

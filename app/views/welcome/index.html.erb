@@ -1,2 +1,33 @@
-<h1>WELCOME TO THE FUTURE OF EVERYTHING</h1>
-<%= button_to "HUG THE FUTURE", "/auth/google_oauth2", method: :get %>
+<div class="jumbotron">
+  <h1 class="display-3">THE FUTURE OF EVERYTHING</h1>
+  <p class="lead">The first AI machine learning dialogue system to leverage IoT home automation and voice recognition web socket technologies on a continuously integrated PAAS to enable MMOC: massively multiplayer online chatroom.</p>
+  <% if current_user %>
+    <p><%= link_to "GET BACK TO HUGGING", room_path(Room.default), class: "btn btn-lg btn-secondary" %></p>
+  <% else %>
+    <p><%= button_to "HUG THE FUTURE", "/auth/google_oauth2", method: :get, class: "btn btn-lg btn-success" %></p>
+  <% end %>
+</div>
+
+<div class="row marketing">
+  <div class="col-lg-6">
+    <h4>Artificial Intelligence</h4>
+    <p>This is that thing where somebody seems really smart but for some reason you can tell they're just faking it.</p>
+
+    <h4>Internet of Things</h4>
+    <p>Technically defined as a thing that is on "the internet", also known as the world wide cyber information superhighway.</p>
+
+    <h4>Voice Recognition</h4>
+    <p>Imparts the ability to recognize voices:<br><em>"That's a voice! Thanks Friendsterbookspace!"</em><br><em>"Nope, not a voice... that's just screeching."</em></p>
+  </div>
+
+  <div class="col-lg-6">
+    <h4>Dialogue System</h4>
+    <p>Like normal talking but a little more robot-ey and innovatey.</p>
+
+    <h4>Home Automation</h4>
+    <p>Immediately and automatically gain an additional home, limit one per customer.</p>
+
+    <h4>WebSockets</h4>
+    <p>Similar to WebSoffits, but made out of socks instead of wood.</p>
+  </div>
+</div>
