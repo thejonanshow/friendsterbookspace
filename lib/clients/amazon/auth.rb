@@ -22,8 +22,12 @@ module Clients
         "https://api.amazon.com"
       end
 
+      def self.app_url
+        Rails.application.routes.default_url_options[:host]
+      end
+
       def self.redirect_uri
-        "http://localhost:5000/callbacks/amazon"
+        "#{app_url}/callbacks/amazon"
       end
 
       def self.params

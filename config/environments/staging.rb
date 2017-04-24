@@ -1,5 +1,5 @@
 Rails.application.configure do
-  Rails.application.routes.default_url_options[:host] = "https://friendsterbookspace.herokuapp.com"
+  Rails.application.routes.default_url_options[:host] = "https://friendsterbookspace-staging.herokuapp.com"
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Code is not reloaded between requests.
