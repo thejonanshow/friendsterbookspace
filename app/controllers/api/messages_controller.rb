@@ -1,5 +1,5 @@
 class Api::MessagesController < ApiController
-  before_action :set_user, :set_room
+  before_action :ensure_valid_api_key, :set_user, :set_room
 
   def create
     return head :not_acceptable unless message_params
@@ -10,9 +10,7 @@ class Api::MessagesController < ApiController
       content: message_params[:content]
     )
 
-    if invalid_api_key?
-      head :unauthorized
-    elsif message.save
+    if message.save
       head :created
     elsif message.errors
       head :unprocessable, params: { errors: message.errors.full_messages }
@@ -22,10 +20,13 @@ class Api::MessagesController < ApiController
   end
 
   private
+  
+  def ensure_valid_api_key
+    return head :unauthorized unless valid_api_key?
+  end
 
   def set_user
     return unless message_params
-
     @user ||= User.find_or_create_by(name: message_params.dig(:user, :name))
   end
 
