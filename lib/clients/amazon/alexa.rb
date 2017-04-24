@@ -14,14 +14,10 @@ module Clients
         File.join(Rails.root, "avs_metadata.json")
       end
 
-      def audio_path
-        File.join(Rails.root, "trigger_skill.wav")
-      end
-
-      def payload
+      def payload(file)
         {
           :files[0] => Faraday::UploadIO.new(json_path, "application/json"),
-          :files[1] => Faraday::UploadIO.new(audio_path, "audio/wav")
+          :files[1] => file
         }
       end
 
@@ -30,7 +26,27 @@ module Clients
         @connection = connect
       end
 
-      def post_audio
+      def send_audio(file)
+        refresh_and_reset_connection unless @token.valid_token?
+        payload_file = Faraday::UploadIO.new(file, "audio/wav", file.path)
+
+        response = @connection.post do |request|
+          request.url "/v1/avs/speechrecognizer/recognize"
+          request.body = payload(payload_file)
+        end
+
+        tmp_filename = file.path.split("/").last.split(".").first
+        tmp_path = File.join(Rails.root, "tmp", )
+        mp3 = Tempfile.new([tmp_filename, ".mp3"], tmp_path, encoding: "ASCII-8BIT")
+
+        mp3.write response.body
+        mp3.close
+        mp3
+      ensure
+        File.delete(file.path)
+      end
+
+      def send_trigger
         refresh_and_reset_connection unless @token.valid_token?
 
         response = @connection.post do |request|

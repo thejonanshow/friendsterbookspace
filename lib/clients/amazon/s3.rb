@@ -24,6 +24,11 @@ module Clients
         s3_object.put(body: file)
       end
 
+      def url_for(filename)
+        resource = Aws::S3::Resource.new(client: client)
+        resource.bucket(BUCKET_NAME).object(filename).public_url
+      end
+
       def download_file(filename)
         client.get_object(bucket: BUCKET_NAME, key: filename).body
       end
