@@ -63,7 +63,7 @@ class Message < ApplicationRecord
     user_names = User.all.map(&:name)
 
     text.split(//).each_with_index do |char, index|
-      break if user_names.length <= 1
+      break if user_names.length <= 1 || !name[index]
 
       user_names = user_names.select do |name|
         result = name[index].downcase == char.downcase
