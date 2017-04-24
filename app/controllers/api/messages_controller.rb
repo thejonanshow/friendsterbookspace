@@ -1,5 +1,5 @@
 class Api::MessagesController < ApiController
-  before_action :set_user, :set_room
+  before_action :invalid_api_key?, :set_user, :set_room
 
   def create
     return head :not_acceptable unless message_params
@@ -25,6 +25,7 @@ class Api::MessagesController < ApiController
 
   def set_user
     return unless message_params
+    return if invalid_api_key?
 
     @user ||= User.find_or_create_by(name: message_params.dig(:user, :name))
   end
