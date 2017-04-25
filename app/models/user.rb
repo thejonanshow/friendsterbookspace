@@ -24,6 +24,7 @@ class User < ApplicationRecord
   end
 
   def amazon_token?
+    return true if name == "Alexa"
     amazon_token.present?
   end
 
