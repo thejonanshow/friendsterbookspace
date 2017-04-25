@@ -6,18 +6,6 @@ class Message < ApplicationRecord
 
   validates :content, presence: true, allow_blank: false
 
-  def from_api?
-    @api_source ||= false
-  end
-
-  def not_from_api?
-    !from_api?
-  end
-
-  def from_api=(truthiness)
-    @api_source = truthiness
-  end
-
   def alexa_user
     @alexa ||= User.find_or_create_by(name: "Alexa")
   end
@@ -34,7 +22,7 @@ class Message < ApplicationRecord
   end
 
   def broadcast
-    if command? && user_is_not_alexa?
+    if command?
       handle_command
     else
       ActionCable.server.broadcast(
@@ -67,18 +55,5 @@ class Message < ApplicationRecord
       room: room,
       content: words
     )
-  end
-
-  def reply_no_alexa
-    alexa_says("Sorry, I have measured you and found you lacking. Did you add magic amazon powers?")
-    destroy
-  end
-
-  def user_is_not_alexa?
-    !user_is_alexa?
-  end
-
-  def user_is_alexa?
-    user.name == "Alexa" && not_from_api?
   end
 end

@@ -3,6 +3,8 @@
   <p class="lead">The first AI machine learning dialogue system to leverage IoT home automation and voice recognition web socket technologies on a continuously integrated PAAS to enable MMOC: massively multiplayer online chatroom.</p>
   <% if current_user %>
     <p><%= link_to "GET BACK TO HUGGING", room_path(Room.default), class: "btn btn-lg btn-secondary" %></p>
+  <% elsif ENV["HTTP_AUTH"] %>
+    <p><%= button_to "COMING SOON", "#", method: :get, class: "btn btn-lg btn-success" %></p>
   <% else %>
     <p><%= button_to "HUG THE FUTURE", "/auth/google_oauth2", method: :get, class: "btn btn-lg btn-success" %></p>
   <% end %>

@@ -9,6 +9,8 @@ module ChannelAuthentication
     if authenticated_user = User.find_by(id: user_id)
       cookies.signed[:user_id] ||= user_id
       @current_channel_user = authenticated_user
+    else
+      unauthenticate_channel_user
     end
   end
 

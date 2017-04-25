@@ -10,8 +10,6 @@ class Api::MessagesController < ApiController
       content: message_params[:content]
     )
 
-    message.from_api = true
-
     if message.save
       head :created
     elsif message.errors

@@ -4,7 +4,14 @@ class SessionsController < ApplicationController
   def create
     @user = User.find_or_create_from_auth_hash(auth_hash)
     self.current_user = @user
-    redirect_to room_path(Room.default)
+
+    if @user.amazon_token?
+      destination = room_path(Room.default)
+    else
+      destination = Clients::Amazon::Auth.auth_url
+    end
+
+    redirect_to destination
   end
 
   def create_channel_user

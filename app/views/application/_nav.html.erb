@@ -14,18 +14,6 @@
     <div class="clearfix">
       <nav>
         <ul class="nav nav-pills float-right">
-          <% if current_user.amazon_token? %>
-            <%= render "admin_links" if current_user.admin? %>
-
-            <%= content_tag(:li, class: "nav-item") do %>
-              <%= button_to "Relinquish Amazon Powers", access_token_path(current_user), method: :delete, class: "btn btn-danger" %>
-            <% end %>
-          <% else %>
-            <%= content_tag(:li, class: "nav-item") do %>
-              <%= link_to "Add Magic Amazon Powers", Clients::Amazon::Auth.auth_url, class: "btn btn-warning" %>
-            <% end %>
-          <% end %>
-
           <%= content_tag(:li, class: "nav-item") do %>
             <%= button_to "Logout", session_path(current_user), method: :delete, class: "btn btn-danger" %>
           <% end %>

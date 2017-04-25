@@ -1,8 +1,0 @@
-<% if current_user.amazon_token.valid_token? %>
-  <% message = "expires in #{distance_of_time_in_words(current_user.amazon_token.expires_at.localtime, DateTime.now)}" %>
-<% else %>
-  <% message = "expired #{time_ago_in_words(current_user.amazon_token.expires_at.localtime)} ago" %>
-<% end %>
-<li class="nav-item">
-  <%= link_to "Refresh Token (#{message})", "/access_tokens/refresh", class: "btn btn-info" %>
-</li>
