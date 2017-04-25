@@ -12,8 +12,6 @@ class Message < ApplicationRecord
       ask_broadcast
     elsif content.match(/^say /)
       say_broadcast
-    elsif content.match(/^tell /)
-      tell_broadcast
     else
       ActionCable.server.broadcast(
         "messages",
@@ -48,48 +46,6 @@ class Message < ApplicationRecord
 
     UsersChannel.broadcast_to(
       user,
-      id: url.split("/").last.split(".").first,
-      url: url,
-      type: "audio"
-    )
-
-    alexa_says("My reply will play automatically, make sure you have your volume turned up.")
-  end
-
-  def tell_broadcast
-    alexa_says("One moment please...")
-    text = content.split(/^tell /).last
-
-    user_names = User.all.map(&:name)
-
-    text.split(//).each_with_index do |char, index|
-      break if user_names.length <= 1 || !name[index]
-
-      user_names = user_names.select do |name|
-        result = name[index].downcase == char.downcase
-        Rails.logger.info "Matches so far: #{name[index]} == #{char.downcase}"
-        result
-      end
-    end
-
-    if user_names.length == 1
-      other_user = User.find_by(name: user_names.first)
-    elsif user_names.length < 1
-      alexa_says("I'm sorry I couldn't find that user.")
-      return
-    else
-      alexa_says("I'm sorry too many users have similar names. Can you be more specific?")
-      return
-    end
-
-    text = text.gsub(/^[#{other_user.name}]+/i, "")
-
-    alexa = AlexaQuery.new(user)
-
-    url = alexa.tell text
-
-    UsersChannel.broadcast_to(
-      other_user,
       id: url.split("/").last.split(".").first,
       url: url,
       type: "audio"
