@@ -34,7 +34,7 @@ class Message < ApplicationRecord
   end
 
   def broadcast
-    if content.match(/^(ask|say)/) && user_is_not_alexa?
+    if command? && user_is_not_alexa?
       handle_command
     else
       ActionCable.server.broadcast(
@@ -43,6 +43,10 @@ class Message < ApplicationRecord
         user_name: user.name
       )
     end
+  end
+
+  def command?
+    content.match(/^(ask|say)/)
   end
 
   def handle_command
