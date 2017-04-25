@@ -28,6 +28,7 @@ module Clients
 
       def send_audio(file)
         refresh_and_reset_connection unless @token.valid_token?
+
         payload_file = Faraday::UploadIO.new(file, "audio/wav", file.path)
 
         response = @connection.post do |request|
@@ -37,10 +38,12 @@ module Clients
 
         tmp_filename = file.path.split("/").last.split(".").first
         tmp_path = File.join(Rails.root, "tmp", )
+
         mp3 = Tempfile.new([tmp_filename, ".mp3"], tmp_path, encoding: "ASCII-8BIT")
 
         mp3.write response.body
         mp3.close
+
         mp3
       ensure
         File.delete(file.path)

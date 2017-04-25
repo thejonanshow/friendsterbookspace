@@ -10,20 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170422232328) do
+ActiveRecord::Schema.define(version: 20170425072202) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "uuid-ossp"
 
   create_table "access_tokens", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
-    t.string   "provider",      null: false
-    t.string   "token",         null: false
-    t.uuid     "user_id",       null: false
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
-    t.string   "refresh_token", null: false
-    t.datetime "expires_at",    null: false
+    t.string   "provider",                                      null: false
+    t.string   "token",                                         null: false
+    t.uuid     "user_id",                                       null: false
+    t.datetime "created_at",                                    null: false
+    t.datetime "updated_at",                                    null: false
+    t.string   "refresh_token", default: "",                    null: false
+    t.datetime "expires_at",    default: '2017-04-22 23:25:22', null: false
   end
 
   create_table "messages", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(version: 20170422232328) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text     "content",    null: false
+    t.string   "reply_url"
     t.index ["room_id"], name: "index_messages_on_room_id", using: :btree
     t.index ["user_id"], name: "index_messages_on_user_id", using: :btree
   end

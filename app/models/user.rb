@@ -10,6 +10,10 @@ class User < ApplicationRecord
     )
   end
 
+  def channel
+    "user_#{id}"
+  end
+
   def first_name
     name.split.first
   end
@@ -25,5 +29,13 @@ class User < ApplicationRecord
 
   def amazon_token
     access_tokens.where(provider: "amazon").first
+  end
+
+  def is_alexa?
+    name == "Alexa"
+  end
+
+  def is_not_alexa?
+    !is_alexa?
   end
 end

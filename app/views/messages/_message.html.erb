@@ -1,4 +1,8 @@
 <div class="message input-group">
-  <span class="user input-group-addon"><%= message.user.name %>: </span>
-  <span class="content form-control"><%= message.content %></span>
+  <span class="user input-group-addon<%= ' text-white bg-info' if message.user.is_alexa? %>">
+    <%= message.user.name %>:
+  </span>
+  <span class="content form-control<%= ' text-primary' if message.user.is_alexa? %>">
+    <%= message.content %>
+  </span>
 </div>

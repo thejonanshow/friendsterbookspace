@@ -18,6 +18,7 @@ module Clients
           voice_id: "Joanna",
           output_format: "mp3"
         )
+
         tmp_filename ||= SecureRandom.uuid
         tmp_path = File.join(Rails.root, "tmp")
 
@@ -26,7 +27,6 @@ module Clients
         mp3.close
 
         wav_path = File.join(Rails.root, "tmp", "#{tmp_filename}.wav")
-
         convert_mp3_to_wav(mp3.path, wav_path)
 
         wav = File.open(wav_path)
